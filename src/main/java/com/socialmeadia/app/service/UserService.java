@@ -8,6 +8,7 @@ import com.socialmeadia.app.repository.PostRepo;
 import com.socialmeadia.app.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -63,11 +64,11 @@ public class UserService {
                 .orElse(null);
     }
 
-    public User getUserWithMostLikes() {
-        return userRepository.findAll().stream()
-                .max(Comparator.comparingInt(user -> user.getPosts().stream().mapToInt(Post::getLikes).sum()))
-                .orElse(null);
-    }
+//    public User getUserWithMostLikes() {
+//        return userRepository.findAll().stream()
+//                .max(Comparator.comparingInt(user -> user.getPosts().stream().mapToInt(Post::getLikes).sum()))
+//                .orElse(null);
+//    }
     public Notification sendNotification(int postId) {
         Optional<Post> post = postRepository.findById(postId);
         if (post.isPresent()) {
@@ -82,5 +83,9 @@ public class UserService {
             return notificationRepository.save(notification);
         }
         throw new RuntimeException("Post not found");
+    }
+
+    public User  findUserWithMostLikes(){
+        return userRepository.findUserWithMostLikes();
     }
 }

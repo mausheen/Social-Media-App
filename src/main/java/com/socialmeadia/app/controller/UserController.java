@@ -44,6 +44,10 @@ public class UserController {
 
     @GetMapping("/most-likes")
     public ResponseEntity<User> getUserWithMostLikes() {
-        return ResponseEntity.ok(userService.getUserWithMostLikes());
+        return ResponseEntity.ok(userService.findUserWithMostLikes());
     }
+
+
+
+
 }
